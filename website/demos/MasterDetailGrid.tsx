@@ -4,7 +4,7 @@ import DataGrid from '../../src';
 import type { Column, RowsChangeData } from '../../src';
 import { CellExpanderFormatter } from './components/Formatters';
 
-interface IMasterDetailRow {
+export interface IMasterDetailRow {
   id: string;
   __type: 'MASTER' | 'DETAIL';
   __expanded?: boolean;
@@ -13,7 +13,7 @@ interface IMasterDetailRow {
 type TDetailsRow<T> = T & { __type: 'DETAIL' };
 type TDetailsRows<T> = TDetailsRow<T>[];
 
-interface IMasterDetailGridProps<T extends IMasterDetailRow> {
+export interface IMasterDetailGridProps<T extends IMasterDetailRow> {
   columns: readonly Column<T>[];
   rows: readonly T[];
   onRowsChanged: (rows: T[]) => void;
@@ -32,6 +32,7 @@ export default function MasterDetailGrid<T extends IMasterDetailRow>(
         name: '',
         minWidth: 30,
         width: 30,
+        frozen: columnProps[0].frozen,
         formatter({ row, isCellSelected, onRowChange }) {
           if (row.__type === 'DETAIL') {
             return <div> </div>;
